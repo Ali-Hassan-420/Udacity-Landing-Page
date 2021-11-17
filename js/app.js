@@ -32,6 +32,8 @@ const section3 = document.getElementById('section3');
 
 let allSections = document.querySelectorAll("section")
 
+
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -78,6 +80,15 @@ function mouseOut3 () {
     three.style.backgroundColor = "white";
 }
 
+function mouseOver4 () {
+    four.style.color = "white";
+    four.style.backgroundColor = "#14161c";
+}
+
+function mouseOut4 () {
+    four.style.color = "black";
+    four.style.backgroundColor = "white";
+}
 
 
 /**
@@ -88,7 +99,7 @@ function mouseOut3 () {
 
 // build the nav
 
-nav_list.innerHTML = "<li id=landy> Landing Page</li> <li id=one> Section 1</li> <li id=two> Section 2</li> <li id=three> Section 3</li>";
+nav_list.innerHTML = "<li id=landy > Landing Page</li> <li id=one href=#section1> Section 1</li> <li id=two href=#section2> Section 2</li> <li id=three href=#section3> Section 3</li><li id=four href=#section4> Section 4</li>";
 nav_list.style.color = "black";
 nav_list.style.fontSize = "20px";
 nav_list.style.fontWeight = "bold";
@@ -120,12 +131,18 @@ three.style.paddingTop = "12px";
 three.style.paddingBottom = "12px";
 three.style.cursor = "pointer";
 
+four.style.paddingRight = "20px";
+four.style.paddingLeft = "20px";
+four.style.paddingTop = "12px";
+four.style.paddingBottom = "12px";
+four.style.cursor = "pointer";
+
 
 // Add class 'active' to section when near top of viewport
 
 function sectionInViewPort(allsections) {
     let sPosition = allsections.getBoundingClientRect();
-    return sPosition.top < 500 &&  sPosition.top >= 0;
+    return sPosition.top >= -400 &&  sPosition.top <= 150;
 }
 
 
@@ -157,6 +174,10 @@ function sectionThree () {
     section3.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
 }
 
+function sectionFour () {
+    section4.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+}
+
 /**
  * End Main Functions
  * Begin Events
@@ -174,7 +195,24 @@ two.addEventListener("mouseleave", mouseOut2)
 three.addEventListener("mouseenter", mouseOver3)
 three.addEventListener("mouseleave", mouseOut3)
 
+four.addEventListener("mouseenter", mouseOver4)
+four.addEventListener("mouseleave", mouseOut4)
+
 // Build menu 
+
+var navList = document.querySelectorAll ("nav .container ul li")
+
+document.addEventListener("scroll", function setActiveState() {
+    for (let i = 0; i < navList.length; i++) {
+      if (sectionInViewPort(navList[i])) {
+        if (!navList[i].classList.contains("menu__link")) {
+          navList[i].classList.add("menu__link");
+        }
+      } else {
+        navList[i].classList.remove("menu__link");
+      }
+    }
+})
 
 // Scroll to section on link click
 
@@ -182,6 +220,13 @@ landy.addEventListener("click", landingPage)
 one.addEventListener("click", sectionOne)
 two.addEventListener("click", sectionTwo)
 three.addEventListener("click", sectionThree)
+four.addEventListener("click", sectionFour)
 
-// Set sections as active
 
+//dynamic nav functionality
+
+
+for(section of allSections){
+    const listItem = document.createElement('li');
+    navList.appendChild(listItem);
+};
