@@ -111,20 +111,19 @@ for (var i=0; i<100; i++) {
     function sectionInViewPort(allsections) {
         let sPosition = allsections.getBoundingClientRect();
         return sPosition.top >= -400 &&  sPosition.top <= 150;
-    }
-    
-    
-    document.addEventListener("scroll", function setActiveState() {
-        for (let i = 0; i < allSections.length; i++) {
-          if (sectionInViewPort(allSections[i])) {
-            if (!allSections[i].classList.contains("active")) {
-              allSections[i].classList.add("active");
-            }
-          } else {
-            allSections[i].classList.remove("active");
-          }
+    }   
+}
+
+function setActiveState() {
+    for (let i = 0; i < allSections.length; i++) {
+      if (sectionInViewPort(allSections[i])) {
+        if (!allSections[i].classList.contains("active")) {
+          allSections[i].classList.add("active");
         }
-    })
+      } else {
+        allSections[i].classList.remove("active");
+      }
+    }
 }
 
 
@@ -165,5 +164,7 @@ goToTopElement.addEventListener("click", landingPage)
 
 
 // Set sections as active
+
+document.addEventListener("scroll", setActiveState)
 
 window.addEventListener("scroll", activeNavBar)
